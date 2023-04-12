@@ -4,6 +4,7 @@ import br.com.francelino.apitestunitario.domain.User;
 import br.com.francelino.apitestunitario.domain.dto.UserDTO;
 import br.com.francelino.apitestunitario.repositories.UserRepository;
 import br.com.francelino.apitestunitario.services.UserService;
+import br.com.francelino.apitestunitario.services.exceptions.DataIntegratyViolationException;
 import br.com.francelino.apitestunitario.services.exceptions.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(UserDTO obj) {
+        findByEmail(obj);
         return userRepository.save(mapper.map(obj, User.class));
     }
 
+    private void findByEmail(UserDTO obj) {
+        Optional<User> user = userRepository.findByEmail(obj.getEmail());
+        if (user.isPresent()) {
+            throw new DataIntegratyViolationException("Email já cadastrado no sistema");
+        }
+    }
 
 }
