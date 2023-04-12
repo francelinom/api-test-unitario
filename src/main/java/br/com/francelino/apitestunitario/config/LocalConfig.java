@@ -16,11 +16,14 @@ public class LocalConfig {
     @Autowired
     private UserRepository userRepository;
 
+    /*
     @Bean
     public void startDB() {
-        User u1 = new User(null, "Fran", "fran3@mail.com", "123456");
-        User u2 = new User(null, "saul", "saul3@mail.com", "123456");
+        User u1 = new User(null, "Fran", "fran00@mail.com", "123456");
+        User u2 = new User(null, "saul", "saul00@mail.com", "123456");
 
         userRepository.saveAll(List.of(u1, u2));
     }
+
+     */
 }
