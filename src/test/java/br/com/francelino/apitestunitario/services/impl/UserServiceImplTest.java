@@ -3,6 +3,7 @@ package br.com.francelino.apitestunitario.services.impl;
 import br.com.francelino.apitestunitario.domain.User;
 import br.com.francelino.apitestunitario.domain.dto.UserDTO;
 import br.com.francelino.apitestunitario.repositories.UserRepository;
+import br.com.francelino.apitestunitario.services.exceptions.ObjectNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,6 +58,18 @@ public class UserServiceImplTest {
         assertEquals(ID, response.getId());
         assertEquals(NOME, response.getNome());
         assertEquals(EMAIL, response.getEmail());
+    }
+
+    @Test
+    void whenFindByIdThenReturnAnObjectNotFoundException() {
+        when(userRepository.findById(anyInt())).thenThrow(new ObjectNotFoundException("Objeto não encontrado"));
+
+        try {
+            userService.findById(ID);
+        } catch (Exception e) {
+            assertEquals(ObjectNotFoundException.class, e.getClass());
+            assertEquals("Objeto não encontrado", e.getMessage());
+        }
     }
 
     @Test
