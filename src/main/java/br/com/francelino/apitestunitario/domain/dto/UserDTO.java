@@ -2,10 +2,12 @@ package br.com.francelino.apitestunitario.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class UserDTO {
 
     private Integer id;
@@ -14,6 +16,7 @@ public class UserDTO {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
 
     public UserDTO(Integer id, String nome, String email, String password) {
         this.id = id;
